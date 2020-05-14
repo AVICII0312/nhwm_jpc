@@ -67,8 +67,7 @@
         width: 160px;
         height: 160px;
         border-radius: 6px;
-        margin-right: 20px;
-        background: red;
+        margin-right: 20px;       
       }
       .left {
         flex: 1;
@@ -105,7 +104,7 @@
         .button {
           width: 132px;
           height: 56px;
-          line-height: 56px;
+          line-height: 60px;
           font-size: 28px;
           font-weight: bold;
           border-radius: 28px;

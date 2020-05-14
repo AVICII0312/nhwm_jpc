@@ -5,11 +5,11 @@
       <div class="title">套餐信息</div>
       <div class="row">
         <div class="name">
-          <p>{{detail.goods[0].goods_name}}</p>
-          <p>
+          <div class="subject">{{detail.goods[0].goods_name}}</div>
+          <div>
             <span>x</span>
             1
-          </p>
+          </div>
         </div>
         <div class="num">￥{{detail.pay_price}}</div>
       </div>
@@ -76,7 +76,7 @@
   }
   .order {
     background: #fff;
-    padding: 30px;
+    padding: 30px 30px 0;
     .title {
       font-size: 32px;
       font-weight: bold;
@@ -99,6 +99,14 @@
         padding-right: 90px;
         span {
           color: #666;
+        }
+        .subject {
+          width: 460px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
         }
       }
       .num {
@@ -161,7 +169,28 @@ export default {
   data() {
     return {
       order_id: "",
-      detail: {}
+      detail: {
+        pay_price: "",
+        order_no: "",
+        create_time: "",
+        buyer_remark: "",
+        address: {
+          detail: "",
+          name: "",
+          phone: ""
+        },
+        pay_type: {
+          text: ""
+        },
+        order_status: {
+          text: ""
+        },
+        goods: [
+          {
+            goods_name: ""
+          }
+        ]
+      }
     };
   },
   created() {

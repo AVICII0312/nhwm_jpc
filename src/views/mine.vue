@@ -70,7 +70,7 @@
     .icon {
       color: #ff9900;
       margin-right: 28px;
-      font-size: 40px;
+      font-size: 36px;
     }
     .info {
       flex: 1;
@@ -89,7 +89,7 @@
   .company {
     position: fixed;
     left: 50%;
-    bottom: 160px;
+    bottom: 120px;
     transform: translateX(-50%);
     background: none;
     .van-cell__value--alone {

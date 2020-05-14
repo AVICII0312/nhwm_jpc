@@ -1,7 +1,7 @@
 <template>
   <div class="orderlist_nhwm">
-    <van-nav-bar title="我要点餐" />
-    <van-tabs v-model="selected" fixed line-width="24">
+    <van-nav-bar title="订单" />
+    <van-tabs v-model="selected" lazy-render fixed line-width="24" @change="tabChange">
       <van-tab id="1" title="全部">
         <template v-if="list.length">
           <div class="list">
@@ -35,8 +35,8 @@
                       </div>
                     </div>
                     <div class="subtitle">
-                      <div class="price">￥{{item.goods[0].goods_price}}</div>
-                      <div class="tag">{{item.order_time}}</div>
+                      <div class="price">￥{{item.pay_price}}</div>
+                      <div class="tag">{{item.create_time}}</div>
                     </div>
                   </div>
                 </div>
@@ -81,8 +81,8 @@
                       </div>
                     </div>
                     <div class="subtitle">
-                      <div class="price">￥{{item.goods[0].goods_price}}</div>
-                      <div class="tag">{{item.order_time}}</div>
+                      <div class="price">￥{{item.pay_price}}</div>
+                      <div class="tag">{{item.create_time}}</div>
                     </div>
                   </div>
                 </div>
@@ -127,8 +127,8 @@
                       </div>
                     </div>
                     <div class="subtitle">
-                      <div class="price">￥{{item.goods[0].goods_price}}</div>
-                      <div class="tag">{{item.order_time}}</div>
+                      <div class="price">￥{{item.pay_price}}</div>
+                      <div class="tag">{{item.create_time}}</div>
                     </div>
                   </div>
                 </div>
@@ -150,7 +150,7 @@
   height: 100vh;
   .van-nav-bar {
     height: 78px;
-    line-height: 78px;    
+    line-height: 78px;
     background: #eeeeee;
     border-top: 40px solid #eee;
     box-sizing: content-box;
@@ -221,10 +221,15 @@
           display: flex;
           justify-content: space-between;
           .title {
+            width: 430px;
             font-size: 32px;
             font-weight: bold;
             color: #333;
-            padding-bottom: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
           }
         }
         .statue {
@@ -239,7 +244,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-top: 10px;
+        margin-top: 20px;
         .price {
           font-size: 28px;
           font-weight: bold;
@@ -273,12 +278,14 @@
 export default {
   data() {
     return {
-      selected: "1",
+      selected: 2,
       total: 0,
       page: 1,
       loading: false,
       finished: false,
       ispage: false,
+      useCounter: true,
+      counter: 0,
       dataType: "all",
       list: [
         {
@@ -286,111 +293,23 @@ export default {
           order_no: "2020042254100571",
           total_price: "2.00",
           order_price: "2.00",
-          coupon_id: 0,
-          coupon_money: "0.00",
-          points_money: "0.00",
-          points_num: 0,
-          pay_price: "0.00",
-          update_price: {
-            symbol: "+",
-            value: "0.00"
-          },
-          buyer_remark: "",
-          pay_type: {
-            text: "农行支付",
-            value: 30
-          },
-          pay_status: {
-            text: "已付款",
-            value: 20
-          },
-          pay_time: 1587544902,
-          delivery_type: {
-            text: "快递配送",
-            value: 10
-          },
-          extract_shop_id: 0,
-          extract_clerk_id: 0,
-          express_price: "0.00",
-          express_id: 0,
-          express_company: "",
-          express_no: "",
-          delivery_status: 10,
-          delivery_time: 0,
-          receipt_status: 10,
-          receipt_time: 0,
           order_status: {
             text: "待接单",
             value: 10
           },
-          points_bonus: 0,
-          is_settled: 0,
-          transaction_id: "",
-          is_comment: 0,
-          order_source: 10,
-          order_source_id: 0,
-          user_id: 10143,
-          is_delete: 0,
           create_time: "2020-04-22 16:41:42",
-          leshua_order_id: "",
-          shop_id: 0,
-          delivery_price: "0.00",
-          order_time: "1970-01-01 08:00",
-          is_order: 10,
-          free_price: "0.00",
-          error_msg: null,
-          free_limit: null,
-          order_from: 10,
           goods: [
             {
               order_goods_id: 10152,
               goods_id: 10090,
               goods_name: "套餐一",
-              image_id: 10039,
-              deduct_stock_type: 20,
-              spec_type: 10,
-              spec_sku_id: "0",
               goods_sku_id: 10115,
-              goods_attr: "",
-              goods_no: "",
               goods_price: "2.00",
-              line_price: "0.00",
-              goods_weight: 0,
-              is_user_grade: 0,
-              grade_ratio: 0,
               grade_goods_price: "0.00",
               grade_total_money: "0.00",
-              coupon_money: "0.00",
-              points_money: "0.00",
-              points_num: 0,
-              points_bonus: 0,
-              total_num: 1,
               total_price: "2.00",
               total_pay_price: "2.00",
-              is_ind_dealer: 0,
-              dealer_money_type: 10,
-              first_money: "0.00",
-              second_money: "0.00",
-              third_money: "0.00",
-              is_comment: 0,
-              order_id: 10156,
-              user_id: 10143,
-              goods_source_id: 0,
-              shop_id: 0,
               image: {
-                file_id: 10039,
-                storage: "local",
-                group_id: 0,
-                file_url: "",
-                file_name: "20190611091714f583e8315.jpg",
-                file_size: 85680,
-                file_type: "image",
-                extension: "jpg",
-                is_user: 0,
-                is_recycle: 0,
-                is_delete: 0,
-                wxapp_id: 10001,
-                create_time: "2019-06-11 09:17:14",
                 file_path:
                   "http://127.0.0.1:8094/uploads/20190611091714f583e8315.jpg"
               }
@@ -399,35 +318,25 @@ export default {
         }
       ]
     };
-  }, 
-  watch: {
-    selected: function(newQuestion, oldQuestion) {
-      switch (Number(newQuestion + 1)) {
-        case 1:
-          this.dataType = "all";
-          break;
-        case 2:
-          this.dataType = "sending";
-          break;
-        case 3:
-          this.dataType = "complete";
-          break;
-      }
-      this.total = 0;
-      this.page = 1;
-      this.loading = false;
-      this.finished = false;
-      this.ispage = false;
-      this.$nextTick(() => {
-        this.getList();
+  },
+  created() {
+    if (window.sessionStorage.getItem("selected")) {
+      this.selected = Number(window.sessionStorage.getItem("selected"));
+      this.env(() => {
+        this.tabChange(this.selected);
       });
     }
   },
-  methods: {    
-    toDetail(e) {      
+
+  destroyed() {
+    window.sessionStorage.setItem("selected", this.selected);
+  },
+  methods: {
+    toDetail(e) {
       this.$router.push({ name: "Orderdetail", params: { order_id: e } });
-    },    
-    getList: function(e) {
+    },
+    getList: function() {
+      console.log(this.dataType, this.selected);
       let _this = this;
       this.$axios("", {
         params: {
@@ -450,6 +359,29 @@ export default {
           this.loading = false;
         });
       });
+    },
+    tabChange: function(name) {
+      switch (Number(name + 1)) {
+        case 1:
+          this.dataType = "all";
+          break;
+        case 2:
+          this.dataType = "sending";
+          break;
+        case 3:
+          this.dataType = "complete";
+          break;
+      }
+      this.total = 0;
+      this.page = 1;
+      this.loading = false;
+      this.finished = false;
+      this.ispage = false;
+      this.getList();
+    },
+    env(callback) {
+      callback && callback();
+      this.useCounter && this.counter++;
     },
     onLoad() {
       // 异步更新数据

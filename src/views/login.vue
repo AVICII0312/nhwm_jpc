@@ -1,7 +1,7 @@
 <template>
   <div class="login_nhwm">
     <div class="header">
-      <div class="title">手机号注册</div>
+      <div class="title">手机号快捷登录</div>
       <div class="subtitle">未注册过的手机号将自动创建账号</div>
     </div>
     <van-field v-model="phone" type="tel" placeholder="请输入手机号" class="input" :border="false" />
@@ -11,7 +11,7 @@
       :maxlength="6"
       center
       placeholder="请输入验证码"
-      class="input"
+      class="input top"
       :border="false"
     >
       <template #button>
@@ -114,6 +114,9 @@ export default {
       font-size: 32px;
       color: #aaa;
     }
+    &.top{
+      margin-top: 20px;
+    }    
   }
   .code {
     font-size: 32px;
@@ -134,7 +137,7 @@ export default {
     height: 100px;
     line-height: 100px;
     text-align: center;
-    font-size: 32px;
+    font-size: 34px;
     color: #fff;
     background: #ff9900;
     border-radius: 50px;

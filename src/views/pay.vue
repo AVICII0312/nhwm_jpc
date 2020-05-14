@@ -13,18 +13,17 @@
     <div class="food_list">
       <div class="row">
         <div class="name">
-          <p>{{food.goods_name}}</p>
-          <p>
+          <div class="title">{{food.goods_name}}</div>
+          <div>
             <span>x</span>
             1
-          </p>
+          </div>
         </div>
         <div class="num">￥{{food.goods_price}}</div>
       </div>
       <div class="row">
-        <div></div>
+        <div class="name">合计</div>
         <div class="total">
-          <span>合计</span>
           <span class="total_num">￥{{Number(food.goods_price)}}</span>
         </div>
       </div>
@@ -144,6 +143,14 @@
         justify-content: space-between;
         align-items: center;
         padding-right: 90px;
+        .title {
+          width: 460px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+        }
         span {
           font-size: 20px;
         }
@@ -259,7 +266,7 @@
       }
     }
     .content {
-      font-size: 24px;
+      font-size: 26px;
       color: #fcb200;
       margin-top: 10px;
     }
@@ -279,7 +286,7 @@
       display: flex;
       align-items: center;
       .price {
-        font-size: 32px;
+        font-size: 40px;
         color: #fff;
       }
     }
@@ -339,7 +346,15 @@ export default {
           }
         })
         .then(res => {
-          window.location.href = res.data.payment;
+          if (res.code != 1) return;
+          if (this.userInfo.user_type.value == 1) {
+            sessionStorage.setItem("active", "Orderlist");
+            this.$router.replace({ name: "Orderlist" }).catch(err => {
+              err;
+            });
+          } else {
+            window.location.href = res.data.payment;
+          }
         });
     }
   }
